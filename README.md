@@ -2,7 +2,7 @@
 
 Blauberg S22 replacement controller with ESPHome
 
-With this library you can replace the S22 controller of your air recuperator (mine is KOMFORT ERV EC DB 350) and controll it via ESPHome.
+With this library you can replace the S22 controller of your air recuperator (mine is KOMFORT ERV EC DB 350) and control it via ESPHome.
 
 ![](/images/home_assistant.png)
 ![](/images/1695192425987.jpg)
