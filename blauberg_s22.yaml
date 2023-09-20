@@ -1,0 +1,128 @@
+substitutions:
+  name: 'blauberg_s22'
+  init: 'BlaubergS22::instance(id(uart_bus));'
+
+esphome:
+  name: "${name}"
+  platform: ESP8266
+  board: d1_mini
+  includes:
+    - blauberg_s22.h
+
+# Enable logging
+logger:
+  level: NONE
+
+# Enable Home Assistant API
+api:
+  password: ""
+
+ota:
+  password: ""
+
+wifi:
+  ssid: "your wifi ssid"
+  password: "your wifi password"
+  power_save_mode: none
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "${name}_Fallback Hotspot"
+    password: "2jttP6Z7DFWQ"
+
+captive_portal:
+
+uart:
+  id: uart_bus
+  tx_pin: D0
+  rx_pin: D1
+  baud_rate: 600
+
+custom_component:
+- lambda: |-
+    auto blauberg = ${init}
+    return {blauberg};
+switch:
+  - platform: template
+    name: "${name}_Speed 0"
+    icon: mdi:fan-off
+    lambda: |-
+      auto blauberg = ${init}
+      return blauberg->is_speed(0);
+    turn_on_action:
+      lambda: |-
+        auto blauberg = ${init}
+        blauberg->set_speed(0);
+  - platform: template
+    name: "${name}_Speed 1"
+    icon: mdi:fan-speed-1
+    lambda: |-
+      auto blauberg = ${init}
+      return blauberg->is_speed(1);
+    turn_on_action:
+      lambda: |-
+        auto blauberg = ${init}
+        blauberg->set_speed(1);
+  - platform: template
+    name: "${name}_Speed 2"
+    icon: mdi:fan-speed-2
+    lambda: |-
+      auto blauberg = ${init}
+      return blauberg->is_speed(2);
+    turn_on_action:
+      lambda: |-
+        auto blauberg = ${init}
+        blauberg->set_speed(2);
+  - platform: template
+    name: "${name}_Speed 3"
+    icon: mdi:fan-speed-3
+    lambda: |-
+      auto blauberg = ${init}
+      return blauberg->is_speed(3);
+    turn_on_action:
+      lambda: |-
+        auto blauberg = ${init}
+        blauberg->set_speed(3);
+
+  - platform: template
+    name: "${name}_Damper"
+    icon: mdi:hvac
+    lambda: |-
+      auto blauberg = ${init}
+      return blauberg->get_damper();
+    turn_on_action:
+      lambda: |-
+        auto blauberg = ${init}
+        blauberg->set_damper(true);
+    turn_off_action:
+      lambda: |-
+        auto blauberg = ${init}
+        blauberg->set_damper(false);
+  - platform: restart
+    name: "${name}_Restart"
+
+sensor:
+  - platform: custom
+    lambda: |-
+      auto blauberg = ${init}
+      return {
+        blauberg->sensor_response,
+        blauberg->sensor_speed
+      };
+    sensors:
+      - name: "${name}_Response"
+        icon: mdi:cable-data
+      - name: "${name}_Speed"
+        icon: mdi:fan
+
+binary_sensor:
+  - platform: custom
+    lambda: |-
+      auto blauberg = ${init}
+      return {
+        blauberg->sensor_damper
+      };
+    binary_sensors:
+      - name: "${name}_Damper"
+        device_class: opening
+        icon: mdi:hvac
