@@ -19,12 +19,12 @@ RX (Green)      ----------> D1
 TX (Brown)      ----------> D0
 GND (White)     ----------> GND
 ```
+I used DC/DC Buck Converter LM2596 to step down +24V to +5V and power up D1 mini. 
+If you want, you can instead use additional power supply, but dont forget to connect GND (Wire from original controller) -> GND (D1 Mini)
+
 **Keep in mind, that your pinout can be different, so double check.**
 
 ![](/images/1695192425993.jpg)
-
-I used DC/DC Buck Converter LM2596 to step down +24V to +5V and power up D1 mini. 
-If you want, you can instead use additional power supply, but dont forget to connect GND (Wire from original controller) -> GND (D1 Mini)
 
 I cut the wire and soldered USB-A socked, to be able to swap between D1 Mini and original S22 easily
 
