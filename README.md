@@ -7,6 +7,9 @@ With this library you can replace the S22 controller of your air recuperator (mi
 ![](/images/home_assistant.png)
 ![](/images/1695192425987.jpg)
 
+
+## Connection
+
 ```
  Wire from                  D1 Mini
  original controller
@@ -26,3 +29,7 @@ If you want, you can instead use additional power supply, but dont forget to con
 I cut the wire and soldered USB-A socked, to be able to swap between D1 Mini and original S22 easily
 
 ![](/images/1695192425977.jpg)
+
+## TODO
+* indication about required filter replacement
+* filter reset button
