@@ -1,13 +1,13 @@
 substitutions:
-  name: 'blauberg_s22'
-  init: 'BlaubergS22::instance(id(uart_bus));'
+  name: 'blauberg_s14'
+  init: 'BlaubergS14::instance(id(uart_bus));'
 
 esphome:
   name: "${name}"
   platform: ESP8266
   board: d1_mini
   includes:
-    - blauberg_s22.h
+    - blauberg_s14.h
 
 # Enable logging
 logger:
@@ -28,7 +28,7 @@ wifi:
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "${name}_Fallback Hotspot"
-    password: "2jttP6Z7DFWQ"
+    password: "2jttP6Z7DtWQ"
 
 captive_portal:
 
@@ -120,9 +120,13 @@ binary_sensor:
     lambda: |-
       auto blauberg = ${init}
       return {
-        blauberg->sensor_damper
+        blauberg->sensor_damper,
+        blauberg->sensor_isDefrosting
       };
     binary_sensors:
       - name: "${name}_Damper"
         device_class: opening
         icon: mdi:hvac
+      - name: "${name}_Defrosting"
+        device_class: running
+        icon: mdi:snowflake-melt
