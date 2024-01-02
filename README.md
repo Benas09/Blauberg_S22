@@ -9,7 +9,6 @@ With this library you can replace the S14 controller of your air recuperator (mi
 
 
 ## Connection
->>>>>>> 24f48024d406fef40bd7513a831dd217393fe11b
 
 ```
  Wire from                  D1 Mini
@@ -27,7 +26,7 @@ If you want, you can instead use additional power supply, but dont forget to con
 
 ![](/images/1695192425993.jpg)
 
-I cut the wire and soldered USB-A socked, to be able to swap between D1 Mini and original S22 easily
+I cut the wire and soldered USB-A socked, to be able to swap between D1 Mini and original S14 easily
 
 ![](/images/1695192425977.jpg)
 
