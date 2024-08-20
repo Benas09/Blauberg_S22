@@ -30,6 +30,8 @@ I cut the wire and soldered USB-A socked, to be able to swap between D1 Mini and
 
 ![](/images/1695192425977.jpg)
 
+![](/images/connection.png)
+
 ## TODO
 * indication about required filter replacement
 * filter reset button
