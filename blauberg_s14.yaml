@@ -42,48 +42,32 @@ custom_component:
 - lambda: |-
     auto blauberg = ${init}
     return {blauberg};
-switch:
-  - platform: template
-    name: "${name}_Speed 0"
-    icon: mdi:fan-off
-    lambda: |-
-      auto blauberg = ${init}
-      return blauberg->is_speed(0);
-    turn_on_action:
-      lambda: |-
-        auto blauberg = ${init}
-        blauberg->set_speed(0);
-  - platform: template
-    name: "${name}_Speed 1"
-    icon: mdi:fan-speed-1
-    lambda: |-
-      auto blauberg = ${init}
-      return blauberg->is_speed(1);
-    turn_on_action:
-      lambda: |-
-        auto blauberg = ${init}
-        blauberg->set_speed(1);
-  - platform: template
-    name: "${name}_Speed 2"
-    icon: mdi:fan-speed-2
-    lambda: |-
-      auto blauberg = ${init}
-      return blauberg->is_speed(2);
-    turn_on_action:
-      lambda: |-
-        auto blauberg = ${init}
-        blauberg->set_speed(2);
-  - platform: template
-    name: "${name}_Speed 3"
-    icon: mdi:fan-speed-3
-    lambda: |-
-      auto blauberg = ${init}
-      return blauberg->is_speed(3);
-    turn_on_action:
-      lambda: |-
-        auto blauberg = ${init}
-        blauberg->set_speed(3);
 
+output:
+  - platform: template
+    id: blauberg_fan_output
+    type: float
+    write_action:
+      lambda: |-
+        auto blauberg = ${init};
+
+        if (state <= 0.25) {
+          blauberg->set_speed(0);
+        } else if (state <= 0.5) {
+          blauberg->set_speed(1);
+        } else if (state <= 0.75) {
+          blauberg->set_speed(2);
+        } else {
+          blauberg->set_speed(3);
+        }
+
+fan:
+  - platform: speed
+    output: blauberg_fan_output
+    name: "${name}_Fan"
+    speed_count: 3
+
+switch:
   - platform: template
     name: "${name}_Damper"
     icon: mdi:hvac
