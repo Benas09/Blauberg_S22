@@ -98,6 +98,20 @@ switch:
       lambda: |-
         auto blauberg = ${init}
         blauberg->set_damper(false);
+  - platform: template
+    name: "${name}_ResetFilter"
+    icon: mdi:swap-horizontal
+    lambda: |-
+      auto blauberg = ${init}
+      return blauberg->get_resetFilter();
+    turn_on_action:
+      lambda: |-
+        auto blauberg = ${init}
+        blauberg->set_resetFilter(true);
+    turn_off_action:
+      lambda: |-
+        auto blauberg = ${init}
+        blauberg->set_resetFilter(false);
   - platform: restart
     name: "${name}_Restart"
 
@@ -121,7 +135,8 @@ binary_sensor:
       auto blauberg = ${init}
       return {
         blauberg->sensor_damper,
-        blauberg->sensor_isDefrosting
+        blauberg->sensor_isDefrosting,
+        blauberg->sensor_filterReplacementRequired
       };
     binary_sensors:
       - name: "${name}_Damper"
@@ -130,3 +145,6 @@ binary_sensor:
       - name: "${name}_Defrosting"
         device_class: running
         icon: mdi:snowflake-melt
+      - name: "${name}_FilterReplacementRequired"
+        device_class: problem
+        icon: mdi:air-filter
